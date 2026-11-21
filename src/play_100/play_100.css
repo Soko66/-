@@ -1,0 +1,417 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap");
+
+/* ===== צבעים משותפים (זהים למקלדת) ===== */
+:root {
+    --c-violet: #8b5cf6;
+    --c-pink: #ec4899;
+    --c-orange: #f97316;
+    --c-yellow: #facc15;
+    --c-green: #22c55e;
+    --c-teal: #14b8a6;
+    --c-blue: #3b82f6;
+    --c-ink: #1e1b4b;
+    --grad-main: linear-gradient(135deg, #8b5cf6 0%, #ec4899 55%, #f97316 100%);
+}
+
+.play-app,
+.play-app * {
+    box-sizing: border-box;
+}
+
+/* ===== מעטפת כללית ===== */
+.play-app {
+    font-family: "Rubik", "Segoe UI", Arial, sans-serif;
+    color: var(--c-ink);
+    padding: 24px;
+    background:
+        radial-gradient(circle at 0% 0%, rgba(139, 92, 246, 0.18), transparent 40%),
+        radial-gradient(circle at 100% 0%, rgba(236, 72, 153, 0.16), transparent 40%),
+        radial-gradient(circle at 50% 100%, rgba(20, 184, 166, 0.16), transparent 50%),
+        #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 14px 36px rgba(139, 92, 246, 0.22);
+    max-width: 1100px;
+    margin: 40px auto;
+}
+
+.play-title {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    background: var(--grad-main);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 6px;
+}
+
+.play-count {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--c-teal);
+    margin-bottom: 16px;
+}
+
+.play-layout {
+    gap: 18px;
+    align-items: flex-start;
+}
+
+/* ===== סרגל צד ===== */
+.play-sidebar {
+    flex-shrink: 0;
+    background-color: #ffffff;
+    border: 2px solid #ddd6fe;
+    border-radius: 16px;
+    padding: 14px;
+    position: sticky;
+    top: 16px;
+    box-shadow: 0 6px 18px rgba(139, 92, 246, 0.12);
+}
+
+.sidebar-player {
+    --dot: var(--c-violet);
+    position: relative;
+    padding: 8px 10px 8px 24px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #1e1b4b;
+    transition: background-color 0.2s;
+}
+
+.sidebar-player::before {
+    content: "";
+    position: absolute;
+    left: 9px;
+    top: 50%;
+    width: 8px;
+    height: 8px;
+    margin-top: -4px;
+    border-radius: 50%;
+    background: var(--dot);
+}
+
+.sidebar-player:nth-child(6n + 2) { --dot: var(--c-pink); }
+.sidebar-player:nth-child(6n + 3) { --dot: var(--c-orange); }
+.sidebar-player:nth-child(6n + 4) { --dot: var(--c-green); }
+.sidebar-player:nth-child(6n + 5) { --dot: var(--c-teal); }
+.sidebar-player:nth-child(6n + 6) { --dot: var(--c-blue); }
+
+.sidebar-player:hover {
+    background-color: #f5f3ff;
+}
+
+.wins-title {
+    margin: 16px 0 10px;
+    padding-top: 14px;
+    border-top: 2px dashed #fbcfe8;
+    font-size: 18px;
+    font-weight: 700;
+    background: linear-gradient(90deg, var(--c-orange), var(--c-yellow));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.wins-row {
+    background: linear-gradient(90deg, #fef9c3 0%, #ffedd5 100%);
+    border-right: 4px solid var(--c-orange);
+    border-radius: 10px;
+    padding: 9px 12px;
+    margin-bottom: 7px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #9a3412;
+}
+
+/* ===== אזור המשחק ===== */
+.play-board {
+    min-width: 0;
+}
+
+/* ===== הוספת משתמש ===== */
+.add-users {
+    background: linear-gradient(135deg, #ede9fe 0%, #fce7f3 50%, #ffedd5 100%);
+    border-radius: 14px;
+    padding: 14px;
+    margin-bottom: 18px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #6d28d9;
+}
+
+.add-users-input {
+    margin: 10px 8px 0 0;
+    padding: 9px 16px;
+    border: 2px solid #ddd6fe;
+    border-radius: 999px;
+    background-color: #ffffff;
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--c-ink);
+    min-width: 220px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.add-users-input:focus {
+    border-color: var(--c-violet);
+    box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.2);
+}
+
+/* ===== כפתורים ===== */
+.btn {
+    background-color: #ffffff;
+    border: 2px solid #ddd6fe;
+    border-radius: 999px;
+    padding: 8px 16px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    color: #6d28d9;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+}
+
+.btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    filter: grayscale(0.6);
+}
+
+/* כפתור הוספה */
+.btn-primary {
+    background: var(--grad-main);
+    color: #ffffff;
+    border-color: transparent;
+    box-shadow: 0 6px 16px rgba(236, 72, 153, 0.35);
+}
+
+.btn-primary:hover:not(:disabled) {
+    box-shadow: 0 10px 22px rgba(236, 72, 153, 0.45);
+}
+
+/* כפתור התחלה */
+.btn-start {
+    background: linear-gradient(135deg, var(--c-green), var(--c-teal));
+    color: #ffffff;
+    border-color: transparent;
+    padding: 12px 30px;
+    font-size: 16px;
+    margin-bottom: 18px;
+    box-shadow: 0 6px 16px rgba(34, 197, 94, 0.4);
+}
+
+.btn-start:hover:not(:disabled) {
+    box-shadow: 0 10px 22px rgba(34, 197, 94, 0.5);
+}
+
+/* כפתורי פעולה – מקשים צבעוניים */
+.btn-op {
+    --key: var(--c-violet);
+    background: #ffffff;
+    border: 2px solid var(--key);
+    border-bottom-width: 4px;
+    border-radius: 12px;
+    min-width: 46px;
+    height: 44px;
+    font-size: 16px;
+    color: var(--key);
+}
+
+.btn-op:nth-child(1) { --key: var(--c-green); }
+.btn-op:nth-child(2) { --key: var(--c-orange); }
+.btn-op:nth-child(3) { --key: var(--c-blue); }
+.btn-op:nth-child(4) { --key: var(--c-violet); }
+
+.btn-op:hover:not(:disabled) {
+    background: var(--key);
+    color: #ffffff;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.btn-op:active:not(:disabled) {
+    transform: translateY(1px);
+    border-bottom-width: 2px;
+    box-shadow: none;
+}
+
+.btn-danger {
+    background: #ffffff;
+    border: 2px solid #f43f5e;
+    border-bottom-width: 4px;
+    border-radius: 12px;
+    height: 44px;
+    color: #f43f5e;
+}
+
+.btn-danger:hover:not(:disabled) {
+    background: #f43f5e;
+    color: #ffffff;
+    box-shadow: 0 8px 16px rgba(244, 63, 94, 0.3);
+}
+
+/* ===== לוח הכרטיסים ===== */
+.main-game {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+}
+
+/* ===== כרטיס שחקן ===== */
+/* ה-!important נדרש כדי לגבור על ה-style שבתוך הקוד */
+.user-card {
+    --card: var(--c-violet);
+    position: relative;
+    background: #ffffff !important;
+    border: 2px solid #ede9fe;
+    border-radius: 18px;
+    padding: 20px 14px 16px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.10);
+    overflow: hidden;
+    transition: all 0.25s ease;
+}
+
+/* צבע שונה לכל שחקן */
+.user-card:nth-child(6n + 2) { --card: var(--c-pink); }
+.user-card:nth-child(6n + 3) { --card: var(--c-orange); }
+.user-card:nth-child(6n + 4) { --card: var(--c-green); }
+.user-card:nth-child(6n + 5) { --card: var(--c-teal); }
+.user-card:nth-child(6n + 6) { --card: var(--c-blue); }
+
+/* פס צבע עליון */
+.user-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: var(--card);
+}
+
+/* תורו של השחקן */
+.user-card.is-active {
+    border-color: var(--card);
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 16px 34px rgba(236, 72, 153, 0.28);
+}
+
+.user-card.is-active::before {
+    background: var(--grad-main);
+}
+
+/* לא תורו */
+.user-card.is-disabled {
+    background: #fafaff !important;
+}
+
+/* ניצח */
+.user-card.is-winner {
+    background: linear-gradient(160deg, #fef9c3 0%, #ffedd5 100%) !important;
+    border-color: var(--c-orange);
+    opacity: 1;
+    box-shadow: 0 12px 28px rgba(249, 115, 22, 0.3);
+}
+
+.user-card.is-winner::before {
+    background: linear-gradient(90deg, var(--c-yellow), var(--c-orange), var(--c-yellow));
+}
+
+/* עזב */
+.user-card.is-left {
+    opacity: 0.45;
+    filter: grayscale(1);
+}
+
+.user-card-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--card);
+}
+
+/* המספר שהוגרל – בולט וברור */
+.user-card-num {
+    display: inline-block;
+    min-width: 110px;
+    font-size: 54px;
+    font-weight: 700;
+    line-height: 1.1;
+    margin: 8px 0 10px;
+    padding: 6px 18px;
+    border-radius: 16px;
+    letter-spacing: -1px;
+    color: #1e1b4b;
+    background: #f5f3ff;
+    border: 2px solid var(--card);
+}
+
+.user-card.is-active .user-card-num {
+    color: #ffffff;
+    background: var(--grad-main);
+    border-color: transparent;
+    box-shadow: 0 8px 18px rgba(236, 72, 153, 0.35);
+}
+
+.user-card.is-winner .user-card-num {
+    color: #7c2d12;
+    background: #ffffff;
+    border-color: var(--c-orange);
+}
+
+.user-card-steps {
+    display: inline-block;
+    margin: 0 0 14px;
+    padding: 3px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #6d28d9;
+    background-color: #ede9fe;
+    border-radius: 999px;
+}
+
+.user-card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+}
+
+/* ===== תגיות ===== */
+.badge {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 5px 16px;
+    border-radius: 999px;
+    margin: 0 0 10px;
+}
+
+.badge-win {
+    background: linear-gradient(135deg, var(--c-yellow), var(--c-orange));
+    color: #ffffff;
+    box-shadow: 0 6px 14px rgba(249, 115, 22, 0.4);
+}
+
+.badge-left {
+    background-color: #e5e7eb;
+    color: #4b5563;
+}
+
+/* ===== מסכים קטנים ===== */
+@media (max-width: 700px) {
+    .play-layout {
+        flex-direction: column;
+    }
+
+    .play-sidebar {
+        width: 100% !important;
+        position: static;
+    }
+}
